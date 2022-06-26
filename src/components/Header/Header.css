@@ -1,0 +1,105 @@
+.Header__nav {
+    background-color: lightgray;
+    height: 6vh;
+    padding: 20px;
+}
+
+.material-symbols-outlined {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    width: 25px;
+    font-weight: bold;
+    padding: 5px 3px;
+}
+
+.Header__link-logo {
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    padding: 5px 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Consolas';
+    font-size: 30px;
+    line-height: 85%;
+    font-weight: bold;
+    color: #000;
+    transition: 0.3s;
+}
+
+.Header__link-logo:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.Header__btn-register {
+    position: absolute;
+    top: 3%;
+    right: 50px;
+    width: 120px;
+    padding: 5px 20px;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.Header__btn-sign-in {
+    position: absolute;
+    top: 3%;
+    right: 200px;
+    width: 120px;
+    padding: 5px 20px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.Header__btn-register:hover, .Header__btn-sign-in:hover {
+    font-weight: bold;
+}
+
+.Header__btn-sign-out {
+    position: absolute;
+    top: 3%;
+    right: 50px;
+    width: 120px;
+    padding: 5px 20px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.Header__btn-sign-out:hover {
+    font-weight: bold;
+}
+
+.Header-options {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 5vh;
+    font-size: 20px;
+}
+
+.Header__link-option {
+    margin-right: 80px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.Header__link-option:hover {
+    color: blue;
+}
+
+.Header__user {
+    margin-right: 160px;
+}
