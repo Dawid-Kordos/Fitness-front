@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #444;
+}
+
+.LoginApp{
+    text-align: center;
+    margin: 10px auto;
+}
+
+.LoginForm{
+    text-align: center;
+    margin: 50px auto;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 15px;
+    width: 230px;
+    background-color: #7f7e7e;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.LoginForm__positive-response{
+    margin: 5px auto;
+    border: 2px solid #00ff00;
+    background-color: #83ea83;
+    width: 160px;
+    text-align: center;
+}
+
+.LoginForm__negative-response{
+    margin: 5px auto;
+    border: 2px solid #ff0000;
+    background-color: #c17373;
+    width: 160px;
+    text-align: center;
+}
+
+.LoginForm__form{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.LoginForm__input{
+    margin-top: 15px;
+    padding: 5px;
+    background-color: #eceaea;
+}
+
+.LoginForm__btn{
+    margin: 15px auto 0;
+    padding: 5px;
+    width: 60px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.LoginForm__link{
+    margin: 10px;
+    text-decoration: none;
+    color: #eceaea;
+}
+
+.LoginForm__link:hover {
+    color: #aeaed9;
+}

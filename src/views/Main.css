@@ -1,0 +1,9 @@
+.Main {
+    width: 100vw;
+}
+
+.Main__img {
+    width: 100vw;
+    height: 37vw;
+    opacity: 60%;
+}
