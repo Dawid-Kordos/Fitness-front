@@ -5,11 +5,13 @@ import {HeaderWelcome} from "../Header/HeaderWelcome";
 import {Main} from '../../views/Main';
 import {Trainings} from "../../views/Trainings";
 import {Stats} from "../../views/Stats";
+import {RegisterForm} from "../../views/RegisterForm";
 import {NotFound} from "../../views/NotFound";
+import {LoginForm} from "../../views/LoginForm";
 
 import './App.css';
 
-const logged = true;
+const logged = false;
 
 export const App = () => {
     return (
@@ -19,6 +21,8 @@ export const App = () => {
                 <Route path='/' element={<Main/>}/>
                 <Route path='/trainings' element={<Trainings/>}/>
                 <Route path='/stats' element={<Stats/>}/>
+                <Route path='/register' element={<RegisterForm/>}/>
+                <Route path='/sign-in' element={<LoginForm/>}/>
                 <Route path='*' element={<NotFound/>}/>
             </Routes>
         </div>

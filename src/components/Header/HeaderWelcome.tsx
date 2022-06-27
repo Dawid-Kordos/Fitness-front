@@ -10,8 +10,8 @@ export const HeaderWelcome = () => (
                 directions_run
             </span>
             <Link className='Header__link-logo' to='/'>Fitness</Link>
-            <button className='Header__btn-sign-in'>Sign in</button>
-            <button className='Header__btn-register'>Register</button>
+            <Link className='Header__btn-sign-in' to='/sign-in'>Sign in</Link>
+            <Link className='Header__btn-register' to='/register'>Register</Link>
         </nav>
     </header>
 )
