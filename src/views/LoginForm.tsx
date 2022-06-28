@@ -1,43 +1,44 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useContext, useState} from 'react';
 import {PasswordPreview} from '../components/PasswordPreview/PasswordPreview';
 import {Input} from "../components/Input/Input";
 import {Button} from "../components/Button/Button";
+import {Link} from "react-router-dom";
 
 import './LoginForm.css';
 
-export const LoginForm = () => {
+interface Props {
+    loginStatus: (status: boolean) => void;
+}
 
-    const[loginData, setLoginData] = useState({
-        email:'',
-        password:'',
-        className:'',
-        text:'',
+export const LoginForm = (props: Props) => {
+    const [loginData, setLoginData] = useState({
+        email: '',
+        password: '',
+        className: '',
+        text: '',
     });
 
     const sendForm = (e: FormEvent) => {
         e.preventDefault();
-        if(loginData.email.length <= 0 || loginData.password.length <= 0) {
+        if (loginData.email.length <= 0 || loginData.password.length <= 0) {
             alert('Email and password are required!');
             throw new Error('Email and password are required!');
         }
-        if(loginData.email === 'a@b.c' && loginData.password === '1234'){
-            return(
-                setLoginData({
-                    email:'',
-                    password: '',
-                    className: 'LoginForm__positive-response',
-                    text: 'Logged in!',
-                })
-            )
-        }else {
-            return(
-                setLoginData({
-                    email:'',
-                    password: '',
-                    className: 'LoginForm__negative-response',
-                    text: 'Incorrect data!',
-                })
-            )
+        if (loginData.email === 'a@b.c' && loginData.password === '1234') {
+            props.loginStatus(true);
+            setLoginData({
+                email: '',
+                password: '',
+                className: 'LoginForm__positive-response',
+                text: 'Logged in!',
+            });
+        } else {
+            setLoginData({
+                email: '',
+                password: '',
+                className: 'LoginForm__negative-response',
+                text: 'Incorrect data!',
+            })
         }
     }
 
@@ -59,9 +60,10 @@ export const LoginForm = () => {
         }))
     )
 
-    return(
+    return (
         <div className='LoginForm'>
             <p className={loginData.className}>{loginData.text}</p>
+            <h1 className='LoginForm__header'>Login</h1>
             <form className='LoginForm__form' onSubmit={sendForm}>
                 <Input
                     className='LoginForm__input'
@@ -83,6 +85,7 @@ export const LoginForm = () => {
                     text='Login'
                 />
             </form>
+            <Link className='LoginForm__link' to='/register'>Register now!</Link>
         </div>
     )
 }

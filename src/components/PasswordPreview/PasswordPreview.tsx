@@ -20,7 +20,7 @@ export const PasswordPreview = (props: Props) => {
     const hidePassword = () => setInputType('password');
 
     return(
-        <form className='PasswordPreview__form'>
+        <div className='PasswordPreview__form'>
             <Input
                 className={props.className}
                 type={inputType}
@@ -37,6 +37,6 @@ export const PasswordPreview = (props: Props) => {
             >
                 👁‍
             </button>
-        </form>
+        </div>
     )
 }
