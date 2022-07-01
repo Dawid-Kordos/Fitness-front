@@ -2,4 +2,8 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-image: url("../../graphics/sport-main.jpg");
+    width: 100vw;
+    opacity: 80%;
+    background-size: cover;
 }

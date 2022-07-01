@@ -1,5 +1,6 @@
 import React from 'react';
+import {Table} from "../components/Table/Table";
 
 export const Trainings = () => (
-    <h1>Trainings here</h1>
+    <Table/>
 )

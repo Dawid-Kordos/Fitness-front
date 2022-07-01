@@ -1,0 +1,31 @@
+.Table {
+    background-image: url("../../graphics/grey_wash_wall.png");
+    margin: auto;
+    padding: 20px;
+    border: 5px solid #000;
+    border-radius: 10px;
+    width: 40%;
+}
+
+.Table__current-date {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.Table__row {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.Table__column {
+    border: 2px solid #000;
+    width: 2vw;
+    height: 4vw;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #a3a0a0;
+}
+
+.Table__btn {
+    width: 80px;
+}
