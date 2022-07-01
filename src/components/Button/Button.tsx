@@ -8,8 +8,8 @@ interface Props {
 export const Button = (props: Props) => (
     <button
         className={props.className}
-        /*type={props.type}*/
         type='submit'
     >{props.text}
     </button>
-)
+);
+

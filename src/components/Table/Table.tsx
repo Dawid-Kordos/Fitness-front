@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
+import {countDaysOfMonth} from "../../utils/countDaysOfMonth";
 
 import './Table.css';
+import {defineFirstDayOfTheMonth} from "../../utils/defineFirstDayOfTheMonth";
 
 export const Table = () => {
     const [days, setDays] = useState<(string | number)[]>([]);
@@ -9,59 +11,14 @@ export const Table = () => {
     const [refDate, setRefDate] = useState<string>(`${month}/01/${year}`);
     const [currentMonthName, setCurrentMonthName] = useState<string>(new Date(refDate).toLocaleDateString('en-EN', {month: 'long'}).toUpperCase());
     const [refDayName, setRefDayName] = useState<string>(new Date(refDate).toLocaleDateString('en-EN', {weekday: 'short'}).toUpperCase());
-
     //const weekday = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'][new Date().getDay() - 1];
 
     //aktualny dzień wyróżnić
     //ciasteczka do sesji
 
-    const handleStartClick = () => {
-        let daysArr: (number | string)[] = [];
-
-        if (month === 1 || month === 3 || month === 5 || month === 7 || month === 8 || month === 10 || month === 12) {
-            for (let i = 0; i <= 30; i++) {
-                daysArr[i] = i + 1;
-            }
-        } else if (month === 2) {
-            if (year % 4 === 0) {
-                for (let i = 0; i <= 28; i++) {
-                    daysArr[i] = i + 1;
-                }
-            } else {
-                for (let i = 0; i <= 27; i++) {
-                    daysArr[i] = i + 1;
-                }
-            }
-        } else if (month === 4 || month === 6 || month === 9 || month === 11) {
-            for (let i = 0; i <= 29; i++) {
-                daysArr[i] = i + 1;
-            }
-        } else {
-            daysArr = [];
-        }
-
-        if (refDayName === 'MON') {
-            setDays(daysArr);
-        } else if (refDayName === 'TUE') {
-            daysArr.unshift('');
-            setDays(daysArr);
-        } else if (refDayName === 'WED') {
-            daysArr.unshift('', '');
-            setDays(daysArr);
-        } else if (refDayName === 'THU') {
-            daysArr.unshift('', '', '');
-            setDays(daysArr);
-        } else if (refDayName === 'FRI') {
-            daysArr.unshift('', '', '', '');
-            setDays(daysArr);
-        } else if (refDayName === 'SAT') {
-            daysArr.unshift('', '', '', '', '');
-            setDays(daysArr);
-        } else if (refDayName === 'SUN') {
-            daysArr.unshift('', '', '', '', '', '');
-            setDays(daysArr);
-        }
-    }
+    useEffect(() => {
+        buildFitnessTable();
+    }, [refDayName, month]);
 
     useEffect(() => {
         setRefDate(`${month}/01/${year}`);
@@ -72,22 +29,40 @@ export const Table = () => {
         setCurrentMonthName(new Date(refDate).toLocaleDateString('en-EN', {month: 'long'}).toUpperCase());
     }, [refDate]);
 
+
+    const buildFitnessTable = () => {
+        let daysArr: (number | string)[] = [];
+
+        countDaysOfMonth(month, year, daysArr);
+        defineFirstDayOfTheMonth(refDayName, daysArr);
+        setDays(daysArr);
+    }
+
     const handlePrevClick = () => {
-        if(month <=1) {
+        if (month <= 1) {
             setMonth(12);
             setYear(year - 1);
-        } else{
+        } else {
             setMonth(month - 1);
+        }
+    }
+
+    const handleNextClick = () => {
+        if (month >= 12) {
+            setMonth(1);
+            setYear(year + 1);
+        } else {
+            setMonth(month + 1);
         }
     }
 
     return (
         <>
-{/*            <span>refDate: {refDate}</span>
-            <span>refDayName: {refDayName}</span>
-            <span>month: {month}</span>*/}
-            <button className='Table__btn' onClick={handlePrevClick}>Prev month</button>
-            <h1 className='Table__current-date'>{currentMonthName} {year}</h1>
+            <div className='Table__navigation'>
+                <button className='Table__btn' onClick={handlePrevClick}>Prev month</button>
+                <h1 className='Table__current-date'>{currentMonthName} {year}</h1>
+                <button className='Table__btn' onClick={handleNextClick}>Next month</button>
+            </div>
             <table className="Table">
                 <thead>
                 <tr className="Table__row">
@@ -160,7 +135,6 @@ export const Table = () => {
                 }
                 </tbody>
             </table>
-            <button onClick={handleStartClick}>Start</button>
         </>
     );
 };

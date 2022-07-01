@@ -1,8 +1,8 @@
-import React, {ChangeEvent, FormEvent, useContext, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
+import {Link, useNavigate} from "react-router-dom";
 import {PasswordPreview} from '../components/PasswordPreview/PasswordPreview';
 import {Input} from "../components/Input/Input";
 import {Button} from "../components/Button/Button";
-import {Link} from "react-router-dom";
 
 import './LoginForm.css';
 
@@ -11,15 +11,16 @@ interface Props {
 }
 
 export const LoginForm = (props: Props) => {
+    const navigate = useNavigate();
+
     const [loginData, setLoginData] = useState({
         email: '',
         password: '',
-        className: '',
-        text: '',
     });
 
     const sendForm = (e: FormEvent) => {
         e.preventDefault();
+
         if (loginData.email.length <= 0 || loginData.password.length <= 0) {
             alert('Email and password are required!');
             throw new Error('Email and password are required!');
@@ -29,24 +30,14 @@ export const LoginForm = (props: Props) => {
             setLoginData({
                 email: '',
                 password: '',
-                className: 'LoginForm__positive-response',
-                text: 'Logged in!',
             });
-        } else {
-            setLoginData({
-                email: '',
-                password: '',
-                className: 'LoginForm__negative-response',
-                text: 'Incorrect data!',
-            })
+            navigate('/trainings');
         }
     }
 
-    const change = (e: ChangeEvent<HTMLInputElement>) => (
+    const changeLogin = (e: ChangeEvent<HTMLInputElement>) => (
         setLoginData(loginData => ({
             ...loginData,
-            className: '',
-            text: '',
             [e.target.name]: e.target.value,
         }))
     )
@@ -54,15 +45,12 @@ export const LoginForm = (props: Props) => {
     const changePassword = (e: ChangeEvent<HTMLInputElement>, value: string) => (
         setLoginData(loginData => ({
             ...loginData,
-            className: '',
-            text: '',
             password: value,
         }))
     )
 
     return (
         <div className='LoginForm'>
-            <p className={loginData.className}>{loginData.text}</p>
             <h1 className='LoginForm__header'>Login</h1>
             <form className='LoginForm__form' onSubmit={sendForm}>
                 <Input
@@ -71,7 +59,7 @@ export const LoginForm = (props: Props) => {
                     name='email'
                     value={loginData.email}
                     placeholder='enter your email...'
-                    onChange={change}
+                    onChange={changeLogin}
                 />
                 <PasswordPreview
                     className='LoginForm__input'
@@ -80,10 +68,10 @@ export const LoginForm = (props: Props) => {
                     value={loginData.password}
                     onChange={changePassword}
                 />
-                <Button
-                    className='LoginForm__btn'
-                    text='Login'
-                />
+                    <Button
+                        className='LoginForm__btn'
+                        text='Login'
+                    />
             </form>
             <Link className='LoginForm__link' to='/register'>Register now!</Link>
         </div>
