@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {countDaysOfMonth} from "../../utils/countDaysOfMonth";
+import {defineFirstDayOfTheMonth} from "../../utils/defineFirstDayOfTheMonth";
 
 import './Table.css';
-import {defineFirstDayOfTheMonth} from "../../utils/defineFirstDayOfTheMonth";
+import {Link} from "react-router-dom";
 
 export const Table = () => {
     const [days, setDays] = useState<(string | number)[]>([]);
@@ -13,7 +14,6 @@ export const Table = () => {
     const [refDayName, setRefDayName] = useState<string>(new Date(refDate).toLocaleDateString('en-EN', {weekday: 'short'}).toUpperCase());
     //const weekday = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'][new Date().getDay() - 1];
 
-    //aktualny dzień wyróżnić
     //ciasteczka do sesji
 
     useEffect(() => {
@@ -65,7 +65,7 @@ export const Table = () => {
             </div>
             <table className="Table">
                 <thead>
-                <tr className="Table__row">
+                <tr className="Table__row-head">
                     <th className="Table__column-head">MON</th>
                     <th className="Table__column-head">TUE</th>
                     <th className="Table__column-head">WED</th>
@@ -77,59 +77,35 @@ export const Table = () => {
                 </thead>
                 <tbody>
                 <tr className="Table__row">
-                    <td className="Table__column">{days[0]}</td>
-                    <td className="Table__column">{days[1]}</td>
-                    <td className="Table__column">{days[2]}</td>
-                    <td className="Table__column">{days[3]}</td>
-                    <td className="Table__column">{days[4]}</td>
-                    <td className="Table__column">{days[5]}</td>
-                    <td className="Table__column">{days[6]}</td>
+                    {days.map((day, i) => (i >= 0 && i <= 6) &&
+                        <td key={i} className="Table__column" style={(day === new Date().getDate() && month === new Date().getMonth() + 1 && year === new Date().getFullYear()) ? {backgroundColor: 'orange'} : {backgroundColor: ''}}>{day !== '' && <Link className='Table__link' to='/add-form'>{day}</Link>}
+                        </td>)}
                 </tr>
                 <tr className="Table__row">
-                    <td className="Table__column">{days[7]}</td>
-                    <td className="Table__column">{days[8]}</td>
-                    <td className="Table__column">{days[9]}</td>
-                    <td className="Table__column">{days[10]}</td>
-                    <td className="Table__column">{days[11]}</td>
-                    <td className="Table__column">{days[12]}</td>
-                    <td className="Table__column">{days[13]}</td>
+                    {days.map((day, i) => (i >= 7 && i <= 13) &&
+                        <td key={i} className="Table__column"><Link className='Table__link' to='/add-form'>{day}</Link>
+                        </td>)}
                 </tr>
                 <tr className="Table__row">
-                    <td className="Table__column">{days[14]}</td>
-                    <td className="Table__column">{days[15]}</td>
-                    <td className="Table__column">{days[16]}</td>
-                    <td className="Table__column">{days[17]}</td>
-                    <td className="Table__column">{days[18]}</td>
-                    <td className="Table__column">{days[19]}</td>
-                    <td className="Table__column">{days[20]}</td>
+                    {days.map((day, i) => (i >= 14 && i <= 20) &&
+                        <td key={i} className="Table__column"><Link className='Table__link' to='/add-form'>{day}</Link>
+                        </td>)}
                 </tr>
                 <tr className="Table__row">
-                    <td className="Table__column">{days[21]}</td>
-                    <td className="Table__column">{days[22]}</td>
-                    <td className="Table__column">{days[23]}</td>
-                    <td className="Table__column">{days[24]}</td>
-                    <td className="Table__column">{days[25]}</td>
-                    <td className="Table__column">{days[26]}</td>
-                    <td className="Table__column">{days[27]}</td>
+                    {days.map((day, i) => (i >= 21 && i <= 27) &&
+                        <td key={i} className="Table__column"><Link className='Table__link' to='/add-form'>{day}</Link>
+                        </td>)}
                 </tr>
                 <tr className="Table__row">
-                    <td className="Table__column">{days[28]}</td>
-                    <td className="Table__column">{days[29]}</td>
-                    <td className="Table__column">{days[30]}</td>
-                    <td className="Table__column">{days[31]}</td>
-                    <td className="Table__column">{days[32]}</td>
-                    <td className="Table__column">{days[33]}</td>
-                    <td className="Table__column">{days[34]}</td>
+                    {days.map((day, i) => (i >= 28 && i <= 34) &&
+                        <td key={i} className="Table__column"><Link className='Table__link' to='/add-form'>{day}</Link>
+                        </td>)}
                 </tr>
                 {days.length > 35 ?
                     <tr className="Table__row">
-                        <td className="Table__column">{days[35]}</td>
-                        <td className="Table__column">{days[36]}</td>
-                        <td className="Table__column">{days[37]}</td>
-                        <td className="Table__column">{days[38]}</td>
-                        <td className="Table__column">{days[39]}</td>
-                        <td className="Table__column">{days[40]}</td>
-                        <td className="Table__column">{days[41]}</td>
+                        {days.map((day, i) => (i >= 35 && i <= 41) &&
+                            <td key={i} className="Table__column"><Link className='Table__link'
+                                                                        to='/add-form'>{day}</Link></td>)}
                     </tr>
                     : null
                 }
