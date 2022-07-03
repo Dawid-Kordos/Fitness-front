@@ -2,7 +2,8 @@ import React, {ChangeEvent, FormEvent, useState} from "react";
 import {Input} from "../components/Input/Input";
 import {InputSelect} from "../components/Input/InputSelect";
 import {Button} from "../components/Button/Button";
-import {ActivityTypeInterface} from "../types/ActivityTypeInterface";
+/*import {ActivityTypeInterface} from "../types/ActivityTypeInterface";*/
+import {ActivityTypeInterface} from "types";
 import {activityDefaultData} from "../utils/activityDefaultData";
 import {Spinner} from "../components/Spinner/Spinner";
 import {activityTypes} from "../utils/activityTypes";

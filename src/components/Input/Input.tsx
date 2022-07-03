@@ -16,7 +16,6 @@ interface Props {
 export const Input = (props: Props) => (
     <label className='Input__label'>{props.label}
         <input
-            id='1'
             className={props.className}
             type={props.type}
             name={props.name}

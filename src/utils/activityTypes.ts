@@ -1,4 +1,5 @@
-import {ActivityTypeEntity} from "../types/ActivityTypeEntity";
+/*import {ActivityTypeEntity} from "../types/ActivityTypeEntity";*/
+import {ActivityTypeEntity} from 'types';
 
 export const activityTypes: ActivityTypeEntity[] = [
     {

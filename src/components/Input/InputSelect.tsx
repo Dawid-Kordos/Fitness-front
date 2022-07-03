@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import {ActivityTypeEntity} from "../../types/ActivityTypeEntity";
+import {ActivityTypeEntity} from "types";
 
 import './InputSelect.css';
 
