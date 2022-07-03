@@ -1,17 +1,37 @@
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Input} from "../components/Input/Input";
 import {InputSelect} from "../components/Input/InputSelect";
 import {Button} from "../components/Button/Button";
-/*import {ActivityTypeInterface} from "../types/ActivityTypeInterface";*/
-import {ActivityTypeInterface} from "types";
+import {ActivityTypeInterface, ActivityTypeEntity} from "types";
 import {activityDefaultData} from "../utils/activityDefaultData";
 import {Spinner} from "../components/Spinner/Spinner";
-import {activityTypes} from "../utils/activityTypes";
 
 import './AddTraining.css';
 
 export const AddTraining = () => {
     const [activityData, setActivityData] = useState<ActivityTypeInterface>(activityDefaultData);
+    const [activityTypes, setActivityTypes] =  useState<ActivityTypeEntity[] | null>(null);
+
+    const refreshActivityTypes = async () => {
+        try {
+            setActivityTypes(null);
+            const res = await fetch('http://localhost:3001/activity-types');
+            setActivityTypes(await res.json());
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        (async () => {
+            await refreshActivityTypes();
+        })();
+    }, []);
+
+
+    if (activityTypes === null) {
+        return <Spinner/>;
+    }
 
     const handleActivityRegistrationForm = (e: FormEvent) => {
         e.preventDefault();
