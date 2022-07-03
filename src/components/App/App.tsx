@@ -1,4 +1,4 @@
-import React, {createContext, SetStateAction, useState} from 'react';
+import React, {useState} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {HeaderLogged} from "../Header/HeaderLogged";
 import {HeaderWelcome} from "../Header/HeaderWelcome";
@@ -8,6 +8,9 @@ import {Stats} from "../../views/Stats";
 import {RegisterForm} from "../../views/RegisterForm";
 import {NotFound} from "../../views/NotFound";
 import {LoginForm} from "../../views/LoginForm";
+import {AddTraining} from "../../views/AddTraining";
+import {SingleDayTrainingsPreview} from "../../views/SingleDayTrainingsPreview";
+import {Footer} from "../Footer/Footer";
 
 import './App.css';
 
@@ -24,11 +27,14 @@ export const App = () => {
             <Routes>
                 <Route path='/' element={<Main/>}/>
                 <Route path='/trainings' element={<Trainings/>}/>
+                <Route path='/trainings/single-day' element={<SingleDayTrainingsPreview/>}/>
+                <Route path='/trainings/add-form' element={<AddTraining/>}/>
                 <Route path='/stats' element={<Stats/>}/>
                 <Route path='/register' element={<RegisterForm />}/>
                 <Route path='/sign-in' element={<LoginForm loginStatus={loginStatus} />}/>
                 <Route path='*' element={<NotFound/>}/>
             </Routes>
+{/*            <Footer />*/}
         </div>
     );
 }
