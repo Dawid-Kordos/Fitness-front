@@ -1,0 +1,52 @@
+.Footer {
+    display: flex;
+    flex-grow: 1;
+}
+
+.Footer__section {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-image: url("../../graphics/grey_wash_wall.png");
+}
+
+.Footer__list {
+    display: flex;
+    list-style: none;
+}
+
+.Footer__item {
+    flex-grow: 1;
+    margin: 0 3vw;
+    font-size: 1rem;
+    line-height: 2rem;
+    text-align: center;
+}
+
+
+@media (max-width: 992px) {
+    .footer__item {
+        font-size: 1.3rem;
+        line-height: 3rem;
+    }
+}
+
+@media (max-width: 799px) {
+    .footer__item {
+        font-size: 1rem;
+        line-height: 2rem;
+    }
+}
+
+
+.Footer__link {
+    text-decoration: none;
+    background-color: #3b5998;
+}
+
+.fa-facebook-f {
+    width: 25px;
+    color: #fff;
+}
+
