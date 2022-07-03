@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {countDaysOfMonth} from "../../utils/countDaysOfMonth";
 import {defineFirstDayOfTheMonth} from "../../utils/defineFirstDayOfTheMonth";
+import {Button} from "../Button/Button";
 
 import './Table.css';
-import {Link} from "react-router-dom";
 
 export const Table = () => {
     const [days, setDays] = useState<(string | number)[]>([]);
@@ -12,9 +13,9 @@ export const Table = () => {
     const [refDate, setRefDate] = useState<string>(`${month}/01/${year}`);
     const [currentMonthName, setCurrentMonthName] = useState<string>(new Date(refDate).toLocaleDateString('en-EN', {month: 'long'}).toUpperCase());
     const [refDayName, setRefDayName] = useState<string>(new Date(refDate).toLocaleDateString('en-EN', {weekday: 'short'}).toUpperCase());
-    //const weekday = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'][new Date().getDay() - 1];
 
-    //ciasteczka do sesji
+    const navigate = useNavigate();
+    //const weekday = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'][new Date().getDay() - 1];
 
     useEffect(() => {
         buildFitnessTable();
@@ -36,32 +37,36 @@ export const Table = () => {
         countDaysOfMonth(month, year, daysArr);
         defineFirstDayOfTheMonth(refDayName, daysArr);
         setDays(daysArr);
-    }
+    };
 
-    const handlePrevClick = () => {
+    const handlePrevMonthClick = () => {
         if (month <= 1) {
             setMonth(12);
             setYear(year - 1);
         } else {
             setMonth(month - 1);
         }
-    }
+    };
 
-    const handleNextClick = () => {
+    const handleNextMonthClick = () => {
         if (month >= 12) {
             setMonth(1);
             setYear(year + 1);
         } else {
             setMonth(month + 1);
         }
-    }
+    };
+
+    const handleAddNewTraining = () => {
+        navigate('/trainings/add-form');
+    };
 
     return (
         <>
             <div className='Table__navigation'>
-                <button className='Table__btn' onClick={handlePrevClick}>Prev month</button>
+                <button className='Table__btn' onClick={handlePrevMonthClick}>{`<<<`}</button>
                 <h1 className='Table__current-date'>{currentMonthName} {year}</h1>
-                <button className='Table__btn' onClick={handleNextClick}>Next month</button>
+                <button className='Table__btn' onClick={handleNextMonthClick}>{`>>>`}</button>
             </div>
             <table className="Table">
                 <thead>
@@ -75,42 +80,92 @@ export const Table = () => {
                     <th className="Table__column-head">SUN</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody className='Table__body'>
                 <tr className="Table__row">
                     {days.map((day, i) => (i >= 0 && i <= 6) &&
-                        <td key={i} className="Table__column" style={(day === new Date().getDate() && month === new Date().getMonth() + 1 && year === new Date().getFullYear()) ? {backgroundColor: 'orange'} : {backgroundColor: ''}}>{day !== '' && <Link className='Table__link' to='/add-form'>{day}</Link>}
+                        <td
+                            key={i}
+                            {...day === '' ? {className: 'Table__reset'} : {className: "Table__column"}}
+                            style={
+                                (day === new Date().getDate() && month === new Date().getMonth() + 1 && year === new Date().getFullYear())
+                                    ? {backgroundColor: 'orange'}
+                                    : {backgroundColor: ''}
+                            }
+                        >
+                            {day !== '' && <Link className='Table__link' to='/trainings/single-day'>{day}</Link>}
                         </td>)}
                 </tr>
                 <tr className="Table__row">
                     {days.map((day, i) => (i >= 7 && i <= 13) &&
-                        <td key={i} className="Table__column"><Link className='Table__link' to='/add-form'>{day}</Link>
+                        <td
+                            key={i}
+                            className="Table__column"
+                            style={(day === new Date().getDate() && month === new Date().getMonth() + 1 && year === new Date().getFullYear())
+                                ? {backgroundColor: 'orange'}
+                                : {backgroundColor: ''}
+                            }
+                        >
+                            <Link className='Table__link' to='/trainings/single-day'>{day}</Link>
                         </td>)}
                 </tr>
                 <tr className="Table__row">
                     {days.map((day, i) => (i >= 14 && i <= 20) &&
-                        <td key={i} className="Table__column"><Link className='Table__link' to='/add-form'>{day}</Link>
+                        <td
+                            key={i}
+                            className="Table__column"
+                            style={(day === new Date().getDate() && month === new Date().getMonth() + 1 && year === new Date().getFullYear())
+                                ? {backgroundColor: 'orange'}
+                                : {backgroundColor: ''}
+                            }
+                        >
+                            <Link className='Table__link' to='/trainings/single-day'>{day}</Link>
                         </td>)}
                 </tr>
                 <tr className="Table__row">
                     {days.map((day, i) => (i >= 21 && i <= 27) &&
-                        <td key={i} className="Table__column"><Link className='Table__link' to='/add-form'>{day}</Link>
+                        <td
+                            key={i}
+                            className="Table__column"
+                            style={(day === new Date().getDate() && month === new Date().getMonth() + 1 && year === new Date().getFullYear())
+                                ? {backgroundColor: 'orange'}
+                                : {backgroundColor: ''}
+                            }
+                        >
+                            <Link className='Table__link' to='/trainings/single-day'>{day}</Link>
                         </td>)}
                 </tr>
                 <tr className="Table__row">
                     {days.map((day, i) => (i >= 28 && i <= 34) &&
-                        <td key={i} className="Table__column"><Link className='Table__link' to='/add-form'>{day}</Link>
+                        <td
+                            key={i}
+                            className="Table__column"
+                            style={(day === new Date().getDate() && month === new Date().getMonth() + 1 && year === new Date().getFullYear())
+                                ? {backgroundColor: 'orange'}
+                                : {backgroundColor: ''}
+                            }
+                        >
+                            <Link className='Table__link' to='/trainings/single-day'>{day}</Link>
                         </td>)}
                 </tr>
-                {days.length > 35 ?
-                    <tr className="Table__row">
+                {days.length > 35
+                    ? <tr className="Table__row">
                         {days.map((day, i) => (i >= 35 && i <= 41) &&
-                            <td key={i} className="Table__column"><Link className='Table__link'
-                                                                        to='/add-form'>{day}</Link></td>)}
+                            <td
+                                key={i}
+                                className="Table__column"
+                                style={(day === new Date().getDate() && month === new Date().getMonth() + 1 && year === new Date().getFullYear())
+                                    ? {backgroundColor: 'orange'}
+                                    : {backgroundColor: ''}
+                                }
+                            >
+                                <Link className='Table__link'
+                                      to='/trainings/single-day'>{day}</Link></td>)}
                     </tr>
                     : null
                 }
                 </tbody>
             </table>
-        </>
+            <Button className='Table__btn-add' text='Add new training' onClick={handleAddNewTraining}/>
+         </>
     );
 };

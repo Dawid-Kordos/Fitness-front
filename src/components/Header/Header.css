@@ -111,3 +111,35 @@
 .Header__user {
     margin-right: 160px;
 }
+
+
+@media (max-width: 799px) {
+    .Header-options {
+        flex-direction: column;
+        justify-content: right;
+    }
+
+    .Header__user{
+        display: none;
+    }
+
+    .Header__link-option {
+        margin-right: 0;
+    }
+
+    .Header__btn-sign-out {
+        right: 15px;
+    }
+
+    .Header__btn-register {
+        position: absolute;
+        top: 6%;
+        right: 50px;
+    }
+
+    .Header__btn-sign-in {
+        position: absolute;
+        top: 2px;
+        right: 50px;
+    }
+}
