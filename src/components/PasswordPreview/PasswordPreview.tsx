@@ -6,7 +6,7 @@ import './PasswordPreview.css';
 interface Props {
     className: string;
     name: string;
-    value: string;
+    value: string | undefined;
     placeholder: string;
     style?: { color: string };
     onChange: (e: ChangeEvent<HTMLInputElement>, value: string) => void;

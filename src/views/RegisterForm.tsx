@@ -2,22 +2,20 @@ import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {PasswordPreview} from "../components/PasswordPreview/PasswordPreview";
 import {Input} from "../components/Input/Input";
 import {Button} from "../components/Button/Button";
+import {registeringDefaultData} from "../utils/registeringDefaultData";
+import {ErrorPage} from "./ErrorPage";
+import {UserDataEntity} from 'types';
 
 import './RegisterForm.css';
 
 export const RegisterForm = () => {
 
-    const [registerData, setRegisterData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password1: '',
-        password2: '',
-    });
+    const [registerData, setRegisterData] = useState<UserDataEntity>(registeringDefaultData);
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
-    const sendForm = (e: FormEvent) => {
+    const sendForm = async (e: FormEvent) => {
         e.preventDefault();
-        if (registerData.firstName.length < 3 || registerData.lastName.length < 3) {
+/*        if (registerData.firstName.length < 3 || registerData.lastName.length < 3) {
             alert('First and last name must have at least 3 characters!');
             throw new Error('First and last name must have at least 3 characters!');
         }
@@ -25,36 +23,47 @@ export const RegisterForm = () => {
             alert('Email is required!');
             throw new Error('Email is required!');
         }
-        if (registerData.password1.length < 8 || registerData.password2.length < 8) {
+        if (registerData.password.length < 8 || registerData.password.length < 8) {
             alert('Password must have at least 8 characters!');
             throw new Error('First and last name must have at least 8 characters!');
         }
-        if (registerData.password1 !== registerData.password2) {
+        if (registerData.password !== registerData.password1) {
             alert('Password and password confirmation are not equal!');
             throw new Error('Password and password confirmation are not equal!');
+        }*/
+
+        try {
+            const res = await fetch('http://localhost:3001/users-data', {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(registerData),
+            });
+
+            const message = await res.json();
+
+            message.message && setErrorMessage(message.message);
+        } catch (err) {
+            console.error(err);
+            return <ErrorPage message={errorMessage}/>
         }
 
-        setRegisterData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            password1: '',
-            password2: '',
-        });
+        setRegisterData(registeringDefaultData);
 
         alert('User registered!');
     }
 
-    const change = (e: ChangeEvent<HTMLInputElement>): void => (
-        setRegisterData(registerData => ({
-            ...registerData,
+    const changeInput = (e: ChangeEvent<HTMLInputElement>): void => (
+        setRegisterData((prev:UserDataEntity) => ({
+            ...prev,
             [e.target.name]: e.target.value,
         }))
     )
 
     const changePassword = (e: ChangeEvent<HTMLInputElement>, value: string): void => (
-        setRegisterData(registerData => ({
-            ...registerData,
+        setRegisterData((prev: UserDataEntity) => ({
+            ...prev,
             [e.target.name]: value,
         }))
     )
@@ -72,7 +81,7 @@ export const RegisterForm = () => {
                     style={registerData.firstName.length < 3 && registerData.firstName.length > 0
                         ? {backgroundColor: '#f69494'}
                         : {backgroundColor: '#98f698'}}
-                    onChange={change}
+                    onChange={changeInput}
                 />
                 <Input
                     className='RegisterForm__input'
@@ -83,7 +92,7 @@ export const RegisterForm = () => {
                     style={registerData.lastName.length < 3 && registerData.lastName.length > 0
                         ? {backgroundColor: '#f69494'}
                         : {backgroundColor: '#98f698'}}
-                    onChange={change}
+                    onChange={changeInput}
                 />
                 <Input
                     className='RegisterForm__input'
@@ -91,12 +100,12 @@ export const RegisterForm = () => {
                     name='email'
                     value={registerData.email}
                     placeholder='enter your email...'
-                    onChange={change}
+                    onChange={changeInput}
                 />
                 <PasswordPreview
                     className='RegisterForm__input'
-                    name='password1'
-                    value={registerData.password1}
+                    name='password'
+                    value={registerData.password}
                     placeholder='enter your password...'
 /*                    style={registerData.password1.length < 8
                         ? {color: '#ff0000'}
@@ -105,8 +114,8 @@ export const RegisterForm = () => {
                 />
                 <PasswordPreview
                     className='RegisterForm__input'
-                    name='password2'
-                    value={registerData.password2}
+                    name='password1'
+                    value={registerData.password1}
                     placeholder='confirm your password...'
 /*                    style={registerData.password2.length < 8
                         ? {color: '#ff0000'}
