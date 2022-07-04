@@ -29,13 +29,9 @@ export const AddTraining = () => {
     }, []);
 
 
-    if (activityTypes === null) {
-        return <Spinner/>;
-    }
 
     const handleActivityRegistrationForm = (e: FormEvent) => {
         e.preventDefault();
-        console.log(activityData);
         setActivityData(activityDefaultData);
     };
 
@@ -52,7 +48,7 @@ export const AddTraining = () => {
             [e.target.name]: e.target.value,
         })));
 
-    if (activityData.activityName === null) {
+    if (activityData.activityName === null || activityTypes === null) {
         return <Spinner/>;
     }
 
