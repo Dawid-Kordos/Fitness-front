@@ -10,7 +10,7 @@ import './AddTraining.css';
 
 export const AddTraining = () => {
     const [activityData, setActivityData] = useState<ActivityTypeInterface>(activityDefaultData);
-    const [activityTypes, setActivityTypes] =  useState<ActivityTypeEntity[] | null>(null);
+    const [activityTypes, setActivityTypes] = useState<ActivityTypeEntity[] | null>(null);
 
     const refreshActivityTypes = async () => {
         try {
@@ -66,60 +66,66 @@ export const AddTraining = () => {
                     activities={activityTypes}
                     onChange={handleSelectChange}
                 />
-                <Input
-                    className='AddTraining__input'
-                    type="date"
-                    name='activityDate'
-                    value={activityData.activityDate}
-                    label='Activity date:'
-                    onChange={handleInputChange}
-                />
-                <Input
-                    className='AddTraining__input'
-                    type="time"
-                    name='activityStartTime'
-                    value={activityData.activityStartTime}
-                    label='Activity started at:'
-                    onChange={handleInputChange}
-                />
-                <Input
-                    className='AddTraining__input'
-                    type="number"
-                    name='activityDuration'
-                    value={activityData.activityDuration}
-                    label='Activity duration [min]:'
-                    onChange={handleInputChange}
-                />
-                <Input
-                    className='AddTraining__input'
-                    type="number"
-                    name='activityDistance'
-                    value={activityData.activityDistance}
-                    label='Activity distance [km]:'
-                    onChange={handleInputChange}
-                />
-                <Input
-                    className='AddTraining__input'
-                    type="number"
-                    name='activitySpeed'
-                    value={activityData.activitySpeed}
-                    label='Activity speed [km/h]:'
-                    onChange={handleInputChange}
-                />
-                <Input
-                    className='AddTraining__input'
-                    type="text"
-                    name='activityComment'
-                    value={activityData.activityComment}
-                    label='Activity comment:'
-                    placeholder='Comment...'
-                    onChange={handleInputChange}
-                />
+                <label className='AddTraining__label'>Activity date:
+                    <Input
+                        className='AddTraining__input'
+                        type="date"
+                        name='activityDate'
+                        value={activityData.activityDate}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <label className='AddTraining__label'>Activity started at:
+                    <Input
+                        className='AddTraining__input'
+                        type="time"
+                        name='activityStartTime'
+                        value={activityData.activityStartTime}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <label className='AddTraining__label'>Activity duration [min]:
+                    <Input
+                        className='AddTraining__input'
+                        type="number"
+                        name='activityDuration'
+                        value={activityData.activityDuration}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <label className='AddTraining__label'>Activity distance [km]:
+                    <Input
+                        className='AddTraining__input'
+                        type="number"
+                        name='activityDistance'
+                        value={activityData.activityDistance}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <label className='AddTraining__label'>Activity speed [km/h]:
+                    <Input
+                        className='AddTraining__input'
+                        type="number"
+                        name='activitySpeed'
+                        value={activityData.activitySpeed}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <label className='AddTraining__label'>Activity comment:
+                    <Input
+                        className='AddTraining__input'
+                        type="text"
+                        name='activityComment'
+                        value={activityData.activityComment}
+                        placeholder='Comment...'
+                        onChange={handleInputChange}
+                    />
+                </label>
                 <Button
                     className='AddTraining__btn'
                     text='Add'
                 />
-{/*                <Button
+                {/*                <Button
                     className='AddTraining__btn'
                     text='Cancel'
                 />*/}
