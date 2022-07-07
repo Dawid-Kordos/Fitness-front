@@ -1,4 +1,5 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import {PasswordPreview} from "../components/PasswordPreview/PasswordPreview";
 import {Input} from "../components/Input/Input";
 import {Button} from "../components/Button/Button";
@@ -9,31 +10,16 @@ import {UserDataEntity} from 'types';
 import './RegisterForm.css';
 
 export const RegisterForm = () => {
+    const navigate = useNavigate();
 
     const [registerData, setRegisterData] = useState<UserDataEntity>(registeringDefaultData);
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const sendForm = async (e: FormEvent) => {
         e.preventDefault();
-/*        if (registerData.firstName.length < 3 || registerData.lastName.length < 3) {
-            alert('First and last name must have at least 3 characters!');
-            throw new Error('First and last name must have at least 3 characters!');
-        }
-        if (registerData.email.length === 0) {
-            alert('Email is required!');
-            throw new Error('Email is required!');
-        }
-        if (registerData.password.length < 8 || registerData.password.length < 8) {
-            alert('Password must have at least 8 characters!');
-            throw new Error('First and last name must have at least 8 characters!');
-        }
-        if (registerData.password !== registerData.password1) {
-            alert('Password and password confirmation are not equal!');
-            throw new Error('Password and password confirmation are not equal!');
-        }*/
 
         try {
-            const res = await fetch('http://localhost:3001/users-data', {
+            const res = await fetch('http://localhost:3001/users-data/register', {
                 method: "post",
                 headers: {
                     'Content-Type': 'application/json',
@@ -51,7 +37,7 @@ export const RegisterForm = () => {
 
         setRegisterData(registeringDefaultData);
 
-        alert('User registered!');
+        navigate('/sign-in');
     }
 
     const changeInput = (e: ChangeEvent<HTMLInputElement>): void => (
@@ -78,7 +64,7 @@ export const RegisterForm = () => {
                     name='firstName'
                     value={registerData.firstName}
                     placeholder='enter your first name...'
-                    style={registerData.firstName.length < 3 && registerData.firstName.length > 0
+                    style={registerData.firstName.length < 3
                         ? {backgroundColor: '#f69494'}
                         : {backgroundColor: '#98f698'}}
                     onChange={changeInput}
@@ -89,7 +75,7 @@ export const RegisterForm = () => {
                     name='lastName'
                     value={registerData.lastName}
                     placeholder='enter your last name...'
-                    style={registerData.lastName.length < 3 && registerData.lastName.length > 0
+                    style={registerData.lastName.length < 3
                         ? {backgroundColor: '#f69494'}
                         : {backgroundColor: '#98f698'}}
                     onChange={changeInput}
@@ -100,6 +86,9 @@ export const RegisterForm = () => {
                     name='email'
                     value={registerData.email}
                     placeholder='enter your email...'
+                    style={registerData.email.includes('@') === false || registerData.email.includes('.') === false
+                        ? {backgroundColor: '#f69494'}
+                        : {backgroundColor: '#98f698'}}
                     onChange={changeInput}
                 />
                 <PasswordPreview
@@ -107,9 +96,6 @@ export const RegisterForm = () => {
                     name='password'
                     value={registerData.password}
                     placeholder='enter your password...'
-/*                    style={registerData.password1.length < 8
-                        ? {color: '#ff0000'}
-                        : {color: '#00ff00'}}*/
                     onChange={changePassword}
                 />
                 <PasswordPreview
@@ -117,9 +103,6 @@ export const RegisterForm = () => {
                     name='password1'
                     value={registerData.password1}
                     placeholder='confirm your password...'
-/*                    style={registerData.password2.length < 8
-                        ? {color: '#ff0000'}
-                        : {color: '#00ff00'}}*/
                     onChange={changePassword}
                 />
                 <Button
