@@ -1,17 +1,22 @@
-import React from 'react';
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {Link, useNavigate} from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 import './Header.css';
 
-const user = 'Dawid';
-
 interface Props {
-    loginStatus: (status: boolean) => void;
+    userName: string;
 }
 
 export const HeaderLogged = (props: Props) => {
+    const navigate = useNavigate();
+    const cookies = new Cookies();
+
     const handleClick = () => {
-        props.loginStatus(false);
+        cookies.remove('isLogged');
+        cookies.remove('userName');
+        navigate('/');
+        window.location.reload();
     }
 
     return (
@@ -24,7 +29,7 @@ export const HeaderLogged = (props: Props) => {
                 <div className='Header-options'>
                     <Link className='Header__link-option' to='/trainings'>Trainings</Link>
                     <Link className='Header__link-option' to='/stats'>Statistics</Link>
-                    <span className='Header__user'>{user}</span>
+                     <span className='Header__user'>{props.userName}</span>
                 </div>
                 <Link to='/'>
                     <button className='Header__btn-sign-out' onClick={handleClick}>Log out</button>

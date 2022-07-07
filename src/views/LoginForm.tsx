@@ -1,38 +1,58 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
+import Cookies from 'universal-cookie';
 import {PasswordPreview} from '../components/PasswordPreview/PasswordPreview';
 import {Input} from "../components/Input/Input";
 import {Button} from "../components/Button/Button";
+import {ErrorPage} from "./ErrorPage";
+import {LoginDataType} from "types";
 
 import './LoginForm.css';
 
-interface Props {
-    loginStatus: (status: boolean) => void;
-}
-
-export const LoginForm = (props: Props) => {
+export const LoginForm = () => {
     const navigate = useNavigate();
+    const cookies = new Cookies();
 
-    const [loginData, setLoginData] = useState({
+    const [loginData, setLoginData] = useState<LoginDataType>({
         email: '',
         password: '',
     });
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
-    const sendForm = (e: FormEvent) => {
+    const sendForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        if (loginData.email.length <= 0 || loginData.password.length <= 0) {
-            alert('Email and password are required!');
-            throw new Error('Email and password are required!');
-        }
-        if (loginData.email === 'a@b.c' && loginData.password === '1234') {
-            props.loginStatus(true);
-            setLoginData({
-                email: '',
-                password: '',
+        try {
+            const res = await fetch('http://localhost:3001/users-data/sign-in', {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginData),
             });
-            navigate('/trainings');
+
+            const message = await res.json();
+
+            if (message.isOk) {
+                cookies.set('isLogged', true);
+                cookies.set('userName', message.userName);
+            }
+
+            message.message && setErrorMessage(message.message);
+        } catch (err) {
+            console.error(err);
+            return <ErrorPage message={errorMessage}/>
         }
+
+        setLoginData({
+            email: '',
+            password: '',
+        });
+
+        const isLoggedCookie = cookies.get('isLogged');
+
+        isLoggedCookie ? navigate('/trainings') : navigate('/sign-in');
+        window.location.reload();
     }
 
     const changeLogin = (e: ChangeEvent<HTMLInputElement>) => (
@@ -40,14 +60,14 @@ export const LoginForm = (props: Props) => {
             ...loginData,
             [e.target.name]: e.target.value,
         }))
-    )
+    );
 
     const changePassword = (e: ChangeEvent<HTMLInputElement>, value: string) => (
-        setLoginData(loginData => ({
+        setLoginData((loginData: LoginDataType) => ({
             ...loginData,
             password: value,
         }))
-    )
+    );
 
     return (
         <div className='LoginForm'>
@@ -68,10 +88,10 @@ export const LoginForm = (props: Props) => {
                     value={loginData.password}
                     onChange={changePassword}
                 />
-                    <Button
-                        className='LoginForm__btn'
-                        text='Login'
-                    />
+                <Button
+                    className='LoginForm__btn'
+                    text='Login'
+                />
             </form>
             <Link className='LoginForm__link' to='/register'>Register now!</Link>
         </div>
