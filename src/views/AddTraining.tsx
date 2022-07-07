@@ -28,8 +28,6 @@ export const AddTraining = () => {
         })();
     }, []);
 
-
-
     const handleActivityRegistrationForm = (e: FormEvent) => {
         e.preventDefault();
         setActivityData(activityDefaultData);
