@@ -15,6 +15,7 @@ export const HeaderLogged = (props: Props) => {
     const handleClick = () => {
         cookies.remove('isLogged');
         cookies.remove('userName');
+        cookies.remove('userId');
         navigate('/');
         window.location.reload();
     }
