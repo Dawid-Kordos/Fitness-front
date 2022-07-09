@@ -36,6 +36,7 @@ export const LoginForm = () => {
             if (message.isOk) {
                 cookies.set('isLogged', true);
                 cookies.set('userName', message.userName);
+                cookies.set('userId', message.userId);
             }
 
             message.message && setErrorMessage(message.message);
