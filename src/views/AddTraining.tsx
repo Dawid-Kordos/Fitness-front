@@ -1,16 +1,22 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import Cookies from 'universal-cookie';
+import {ActivityTypeInterface, ActivityTypeEntity} from "types";
 import {Input} from "../components/Input/Input";
 import {InputSelect} from "../components/Input/InputSelect";
 import {Button} from "../components/Button/Button";
-import {ActivityTypeInterface, ActivityTypeEntity} from "types";
 import {activityDefaultData} from "../utils/activityDefaultData";
 import {Spinner} from "../components/Spinner/Spinner";
+import {ErrorPage} from "./ErrorPage";
 
 import './AddTraining.css';
 
 export const AddTraining = () => {
+    const navigate = useNavigate();
+    const cookies = new Cookies();
     const [activityData, setActivityData] = useState<ActivityTypeInterface>(activityDefaultData);
     const [activityTypes, setActivityTypes] = useState<ActivityTypeEntity[] | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
     const refreshActivityTypes = async () => {
         try {
@@ -28,9 +34,34 @@ export const AddTraining = () => {
         })();
     }, []);
 
-    const handleActivityRegistrationForm = (e: FormEvent) => {
+    const handleActivityRegistrationForm = async (e: FormEvent) => {
         e.preventDefault();
+
+        const userId = cookies.get('userId');
+
+        try {
+            const res = await fetch('http://localhost:3001/activity-data', {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...activityData,
+                    userId,
+                }),
+            });
+
+            const message = await res.json();
+
+            message.message && setErrorMessage(message.message);
+        } catch (err) {
+            console.error(err);
+            return <ErrorPage message={errorMessage}/>
+        }
+
         setActivityData(activityDefaultData);
+
+        navigate('/trainings');
     };
 
     const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>): void => {
