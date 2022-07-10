@@ -1,0 +1,21 @@
+.SingleDayTrainingsPreview__container {
+    margin: 50px auto;
+    background-color: #7f7e7e;
+    border: 5px solid #000;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.SingleDayTrainingsPreview__header {
+    text-align: center;
+    margin: 20px;
+}
+
+.SingleDayTrainingsPreview__list {
+    list-style: none;
+}
+
+.SingleDayTrainingsPreview__item {
+    border-top: 2px dotted #000;
+    padding: 10px;
+}
