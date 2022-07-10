@@ -10,7 +10,7 @@ import './Table.css';
 
 export const Table = () => {
     const navigate = useNavigate();
-    const [days, setDays] = useState<(string | number)[]>([]);
+    const [days, setDays] = useState<(string | number)[]>([]); //amount of days in a month
     const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
     const [year, setYear] = useState<number>(new Date().getFullYear());
     const [refDate, setRefDate] = useState<string>(`${month}/01/${year}`);
