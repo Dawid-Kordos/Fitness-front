@@ -1,0 +1,14 @@
+.Error{
+    margin-top: 10vh;
+    padding: 25px;
+    text-align: center;
+    color: #4b0000;
+    background-color: #764444;
+    border: 2px #4b0000 solid;
+}
+
+
+.Error__link{
+    text-decoration: none;
+    color: #4b0000;
+}

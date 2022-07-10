@@ -6,6 +6,7 @@ import {Button} from "../components/Button/Button";
 import {Spinner} from "../components/Spinner/Spinner";
 
 import "./SingleDayTrainingsPreview.css";
+import {ErrorPage} from "./ErrorPage";
 
 interface Props {
     actualDate: string;
@@ -13,7 +14,6 @@ interface Props {
 
 export const SingleDayTrainingsPreview = (props: Props) => {
     const navigate = useNavigate();
-
     const cookies = new Cookies();
 
     const [userActivities, setUserActivities] = useState<ActivityRegistrationEntity[] | null>(null);
@@ -46,10 +46,11 @@ export const SingleDayTrainingsPreview = (props: Props) => {
     return (
         <>
             <div className='SingleDayTrainingsPreview__container'>
-                <h1 className='SingleDayTrainingsPreview__header'>Total activity
+                <h1 className='SingleDayTrainingsPreview__header'>{props.actualDate}</h1>
+                <h2 className='SingleDayTrainingsPreview__header'>Total activity
                     time: {userActivities.reduce((prev, curr) => prev + curr.activityDuration, 0)} min
-                </h1>
-                <h1 className='SingleDayTrainingsPreview__header'>List of all activities:</h1>
+                </h2>
+                <h2 className='SingleDayTrainingsPreview__header'>List of activities:</h2>
                 <ul className='SingleDayTrainingsPreview__list'>
                     {userActivities.map(activity => (
                         <li key={activity.id}

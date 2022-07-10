@@ -6,6 +6,7 @@
     width: 230px;
     background-color: #7f7e7e;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
 
 .RegisterForm__form{
@@ -32,5 +33,14 @@
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.RegisterForm__link{
+    margin: 10px;
+    color: #000;
+}
+
+.RegisterForm__link:hover {
+    color: #aeaed9;
 }
 

@@ -52,8 +52,10 @@ export const LoginForm = () => {
 
         const isLoggedCookie = cookies.get('isLogged');
 
-        isLoggedCookie ? navigate('/trainings') : navigate('/sign-in');
-        window.location.reload();
+        if (isLoggedCookie) {
+            navigate('/trainings');
+            window.location.reload();
+        }
     }
 
     const changeLogin = (e: ChangeEvent<HTMLInputElement>) => (
@@ -69,6 +71,10 @@ export const LoginForm = () => {
             password: value,
         }))
     );
+
+    if (errorMessage) {
+        return <ErrorPage message={errorMessage}/>
+    }
 
     return (
         <div className='LoginForm'>

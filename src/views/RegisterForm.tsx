@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {PasswordPreview} from "../components/PasswordPreview/PasswordPreview";
 import {Input} from "../components/Input/Input";
 import {Button} from "../components/Button/Button";
@@ -10,7 +10,6 @@ import {UserDataEntity} from 'types';
 import './RegisterForm.css';
 
 export const RegisterForm = () => {
-    const navigate = useNavigate();
 
     const [registerData, setRegisterData] = useState<UserDataEntity>(registeringDefaultData);
     const [errorMessage, setErrorMessage] = useState<string>('');
@@ -36,8 +35,6 @@ export const RegisterForm = () => {
         }
 
         setRegisterData(registeringDefaultData);
-
-        navigate('/sign-in');
     }
 
     const changeInput = (e: ChangeEvent<HTMLInputElement>): void => (
@@ -53,6 +50,10 @@ export const RegisterForm = () => {
             [e.target.name]: value,
         }))
     )
+
+    if (errorMessage) {
+        return <ErrorPage message={errorMessage}/>
+    }
 
     return (
         <div className='RegisterForm'>
@@ -110,6 +111,6 @@ export const RegisterForm = () => {
                     text='Register'
                 />
             </form>
-        </div>
+            {!registerData.firstName ? <Link className='RegisterForm__link' to='/sign-in'>Sign in</Link> : null}</div>
     )
 }

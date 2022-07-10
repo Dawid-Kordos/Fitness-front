@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import {ActualDateContext} from "../App/App";
 
@@ -35,7 +35,9 @@ export const Body = (props: Props) => {
                         }
                     >
                         {day !== '' &&
-                        <Link className='Table__link' to='/trainings/single-day'
+                        <Link className='Table__link'
+                              to='/trainings/single-day'
+/*                              style={{color: 'blue', fontWeight: 'bold'}}*/
                               onClick={() => handleLink(day)}>{day}</Link>}
                     </td>)}
             </tr>

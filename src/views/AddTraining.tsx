@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Cookies from 'universal-cookie';
 import {ActivityTypeInterface, ActivityTypeEntity} from "types";
 import {Input} from "../components/Input/Input";
@@ -12,7 +12,6 @@ import {ErrorPage} from "./ErrorPage";
 import './AddTraining.css';
 
 export const AddTraining = () => {
-    const navigate = useNavigate();
     const cookies = new Cookies();
     const [activityData, setActivityData] = useState<ActivityTypeInterface>(activityDefaultData);
     const [activityTypes, setActivityTypes] = useState<ActivityTypeEntity[] | null>(null);
@@ -53,15 +52,15 @@ export const AddTraining = () => {
 
             const message = await res.json();
 
-            message.message && setErrorMessage(message.message);
+            if (message.message) {
+                setErrorMessage(message.message);
+            }
         } catch (err) {
             console.error(err);
             return <ErrorPage message={errorMessage}/>
         }
 
         setActivityData(activityDefaultData);
-
-        navigate('/trainings');
     };
 
     const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>): void => {
@@ -79,6 +78,10 @@ export const AddTraining = () => {
 
     if (activityData.activityName === null || activityTypes === null) {
         return <Spinner/>;
+    }
+
+    if (errorMessage) {
+        return <ErrorPage message={errorMessage}/>
     }
 
     return (
@@ -155,6 +158,7 @@ export const AddTraining = () => {
                     text='Cancel'
                 />*/}
             </form>
+            {!activityData.activityName ? <Link className='AddTraining__link' to='/trainings'>Go to trainings</Link> : null}
         </div>
     );
 };

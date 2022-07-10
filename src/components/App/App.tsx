@@ -7,14 +7,15 @@ import {Main} from '../../views/Main';
 import {Trainings} from "../../views/Trainings";
 import {Stats} from "../../views/Stats";
 import {RegisterForm} from "../../views/RegisterForm";
-import {NotFound} from "../../views/NotFound";
 import {LoginForm} from "../../views/LoginForm";
 import {AddTraining} from "../../views/AddTraining";
 import {SingleDayTrainingsPreview} from "../../views/SingleDayTrainingsPreview";
+import {ErrorPage} from "../../views/ErrorPage";
 
 import './App.css';
 
 interface ActualDateContextType {
+    actualDate: string;
     handleSetActualDate: (date: string) => void;
 }
 
@@ -28,7 +29,7 @@ export const App = () => {
 
     useEffect(() => {
         setIsLoggedCookie(cookies.get('isLogged'));
-        setUserNameCookie(cookies.get('userName'))
+        setUserNameCookie(cookies.get('userName'));
     }, []);
 
     const handleSetActualDate = (date: string) => {
@@ -37,6 +38,7 @@ export const App = () => {
 
     return (
         <ActualDateContext.Provider value={{
+            actualDate,
             handleSetActualDate,
         }}>
             <div className='App__container'>
@@ -49,7 +51,7 @@ export const App = () => {
                     <Route path='/stats' element={<Stats/>}/>
                     <Route path='/register' element={<RegisterForm/>}/>
                     <Route path='/sign-in' element={<LoginForm/>}/>
-                    <Route path='*' element={<NotFound/>}/>
+                    <Route path='*' element={<ErrorPage message='This page does not exists.'/>}/>
                 </Routes>
                 {/*            <Footer />*/}
             </div>
