@@ -17,15 +17,19 @@ export const SingleDayTrainingsPreview = (props: Props) => {
     const cookies = new Cookies();
 
     const [userActivities, setUserActivities] = useState<ActivityRegistrationEntity[] | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
     const refreshActivities = async () => {
         const userId = cookies.get('userId');
         try {
             setUserActivities(null);
             const res = await fetch(`http://localhost:3001/activity-data/${userId}/${props.actualDate}`);
-            setUserActivities(await res.json());
+            const message = await res.json();
+            setUserActivities(message);
+            message.message && setErrorMessage(message.message);
         } catch (err) {
             console.error(err);
+            return <ErrorPage message={errorMessage}/>
         }
     };
 
@@ -41,6 +45,10 @@ export const SingleDayTrainingsPreview = (props: Props) => {
 
     const handleAddNewTraining = () => {
         navigate('/trainings/add-form');
+    }
+
+    if (errorMessage) {
+        return <ErrorPage message={errorMessage}/>
     }
 
     return (
