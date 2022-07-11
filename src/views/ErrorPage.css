@@ -7,8 +7,17 @@
     border: 2px #4b0000 solid;
 }
 
+.Error__btn{
+    margin: 15px auto 0;
+    padding: 5px;
+    width: 80px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #764444;
+    transition: .2s;
+}
 
-.Error__link{
-    text-decoration: none;
-    color: #4b0000;
+.Error__btn:hover {
+    background-color: #fff;
 }
