@@ -33,7 +33,7 @@ export const LoginForm = () => {
 
             const message = await res.json();
 
-            if (message.isOk) {
+            if (message.loginOk) {
                 cookies.set('isLogged', true);
                 cookies.set('userName', message.userName);
                 cookies.set('userId', message.userId);
