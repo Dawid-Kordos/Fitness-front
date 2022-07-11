@@ -47,7 +47,7 @@ export const App = () => {
                     <Route path='/' element={<Main/>}/>
                     <Route path='/trainings' element={<Trainings/>}/>
                     <Route path='/trainings/single-day' element={<SingleDayTrainingsPreview actualDate={actualDate}/>}/>
-                    <Route path='/trainings/add-form' element={<AddTraining/>}/>
+                    <Route path='/trainings/add-form' element={<AddTraining actualDate={actualDate}/>}/>
                     <Route path='/stats' element={<Stats/>}/>
                     <Route path='/register' element={<RegisterForm/>}/>
                     <Route path='/sign-in' element={<LoginForm/>}/>

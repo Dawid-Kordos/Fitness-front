@@ -1,6 +1,7 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Cookies from 'universal-cookie';
+import {useNavigate} from "react-router-dom";
 import {ActivityTypeInterface, ActivityTypeEntity} from "types";
 import {Input} from "../components/Input/Input";
 import {InputSelect} from "../components/Input/InputSelect";
@@ -11,7 +12,12 @@ import {ErrorPage} from "./ErrorPage";
 
 import './AddTraining.css';
 
-export const AddTraining = () => {
+interface Props {
+    actualDate: string;
+}
+
+export const AddTraining = (props: Props) => {
+    const navigate = useNavigate();
     const cookies = new Cookies();
     const [activityData, setActivityData] = useState<ActivityTypeInterface>(activityDefaultData);
     const [activityTypes, setActivityTypes] = useState<ActivityTypeEntity[] | null>(null);
@@ -61,6 +67,10 @@ export const AddTraining = () => {
         }
 
         setActivityData(activityDefaultData);
+
+        if(activityData.activityName && activityData.activityDate && activityData.activityDuration && activityData.activityStartTime){
+            navigate('/stats');
+        }
     };
 
     const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>): void => {
@@ -99,7 +109,7 @@ export const AddTraining = () => {
                         className='AddTraining__input'
                         type="date"
                         name='activityDate'
-                        value={activityData.activityDate}
+                        value={props.actualDate}
                         onChange={handleInputChange}
                     />
                 </label>
