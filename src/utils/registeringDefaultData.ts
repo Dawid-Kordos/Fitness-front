@@ -4,4 +4,5 @@ export const registeringDefaultData = {
     email: '',
     password: '',
     password1: '',
+    ivHex: '',
 }

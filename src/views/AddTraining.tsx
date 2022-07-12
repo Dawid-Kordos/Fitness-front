@@ -109,7 +109,7 @@ export const AddTraining = (props: Props) => {
                         className='AddTraining__input'
                         type="date"
                         name='activityDate'
-                        value={props.actualDate}
+                        value={activityData.activityDate}
                         onChange={handleInputChange}
                     />
                 </label>

@@ -1,5 +1,6 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {PasswordPreview} from "../components/PasswordPreview/PasswordPreview";
 import {Input} from "../components/Input/Input";
 import {Button} from "../components/Button/Button";
@@ -10,6 +11,7 @@ import {UserDataEntity} from 'types';
 import './RegisterForm.css';
 
 export const RegisterForm = () => {
+    const navigate = useNavigate();
 
     const [registerData, setRegisterData] = useState<UserDataEntity>(registeringDefaultData);
     const [errorMessage, setErrorMessage] = useState<string>('');
@@ -35,10 +37,14 @@ export const RegisterForm = () => {
         }
 
         setRegisterData(registeringDefaultData);
+
+/*        if (registerData.firstName && registerData.lastName && registerData.email && registerData.password && registerData.password1) {
+            navigate('/sign-in');
+        }*/
     }
 
     const changeInput = (e: ChangeEvent<HTMLInputElement>): void => (
-        setRegisterData((prev:UserDataEntity) => ({
+        setRegisterData((prev: UserDataEntity) => ({
             ...prev,
             [e.target.name]: e.target.value,
         }))
@@ -111,6 +117,7 @@ export const RegisterForm = () => {
                     text='Register'
                 />
             </form>
-            {!registerData.firstName ? <Link className='RegisterForm__link' to='/sign-in'>Sign in</Link> : null}</div>
+                <Link className='RegisterForm__link' to='/sign-in'>Sign in</Link>
+        </div>
     )
 }

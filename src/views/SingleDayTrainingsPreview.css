@@ -16,6 +16,13 @@
 }
 
 .SingleDayTrainingsPreview__item {
+    flex-basis: 80%;
     border-top: 2px dotted #000;
     padding: 10px;
 }
+
+.SingleDayTrainingsPreview__wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+

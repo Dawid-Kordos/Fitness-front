@@ -1,0 +1,14 @@
+.ButtonIcon__btn-icon{
+
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 5px 0 0 20px;
+    cursor: pointer;
+    background-color: #999;
+    transition: 0.5s;
+}
+
+.ButtonIcon__btn-icon:hover {
+    background-color: #ccc;
+}
