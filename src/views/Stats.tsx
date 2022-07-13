@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import Cookies from 'universal-cookie';
 import {ActivityRegistrationEntity} from "types";
+import {ButtonImg} from "../components/Button/ButtonImg";
 import {Spinner} from "../components/Spinner/Spinner";
 
 import "./Stats.css";
-import {ButtonImg} from "../components/Button/ButtonImg";
 import trash from "../graphics/trash.png";
-import edit from "../graphics/edit.png";
+/*import edit from "../graphics/edit.png";*/
 
 export const Stats = () => {
     const cookies = new Cookies();
@@ -44,12 +44,12 @@ export const Stats = () => {
                 <h1 className='Stats__header'>List of all activities:</h1>
                 <ul className='Stats__list'>
                     {userActivities.map(activity => (
-                        <div className='Stats__wrapper'>
-                            <li key={activity.id}
+                        <div key={activity.id} className='Stats__wrapper'>
+                            <li
                                 className='Stats__item'> {activity.activityDate}: {activity.activityName} - {activity.activityDuration} min
                             </li>
-                            <ButtonImg img={trash} alt='trash'/>
-                            <ButtonImg img={edit} alt='edit'/>
+                            <ButtonImg img={trash} alt='trash' activityId={activity.id}/>
+                            {/*<ButtonImg img={edit} alt='edit' activityId={activity.id}/>*/}
                         </div>
                     ))}
                 </ul>

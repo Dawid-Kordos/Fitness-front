@@ -9,7 +9,7 @@ import {ButtonImg} from "../components/Button/ButtonImg";
 
 import "./SingleDayTrainingsPreview.css";
 import trash from '../graphics/trash.png';
-import edit from '../graphics/edit.png';
+/*import edit from '../graphics/edit.png';*/
 
 interface Props {
     actualDate: string;
@@ -64,12 +64,12 @@ export const SingleDayTrainingsPreview = (props: Props) => {
                 <h2 className='SingleDayTrainingsPreview__header'>List of activities:</h2>
                 <ul className='SingleDayTrainingsPreview__list'>
                     {userActivities.map(activity => (
-                        <div className='SingleDayTrainingsPreview__wrapper'>
-                            <li key={activity.id}
+                        <div key={activity.id} className='SingleDayTrainingsPreview__wrapper'>
+                            <li
                                 className='SingleDayTrainingsPreview__item'> {activity.activityDate}: {activity.activityName} - {activity.activityDuration} min
                             </li>
-                            <ButtonImg img={trash} alt='trash'/>
-                            <ButtonImg img={edit} alt='edit'/>
+                            <ButtonImg img={trash} alt='trash' activityId={activity.id}/>
+                            {/*<ButtonImg img={edit} alt='edit'  activityId={activity.id}/>*/}
                         </div>
                     ))}
                 </ul>
